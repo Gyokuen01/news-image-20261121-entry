@@ -2,7 +2,7 @@
 """Render THE WORLD TODAY — Saturday 21 November 2026.
 
 A one-page digital front page summing up the day's world news:
-30 stories across 7 regions, drawn with Pillow only. Deterministic:
+36 stories across 7 regions, drawn with Pillow only. Deterministic:
 same input bytes in, same PNG bytes out (no timestamps, no randomness).
 Run:  python3 compose.py   -> writes entry.png beside this file.
 """
@@ -82,16 +82,20 @@ STORIES = [
         ("No Black Sea truce either", "Moscow rejects a sea ceasefire too"),
         ("Kerch Bridge: revenge vowed", "Russia promises retaliation after bridge damage"),
         ("UK–EU landmark deal", "London and Brussels rebuild ties post-Brexit"),
+        ("Rutte flies to Warsaw", "NATO chief visits Poland as Ukraine talks continue"),
+        ("Zelenskyy rejects land swap", "Kyiv rules out ceding land in US peace plan"),
     ]),
     ("MARKETS", [
         ("S&P 500 falls 3.7% on Friday", "Wall Street's worst day in the AI sell-off"),
         ("Nikkei plunges 5.06%", "Tokyo follows US markets sharply lower"),
         ("AI stocks lead the rout", "Chip and software shares drag indexes down"),
         ("Anthropic debuts near $2T", "AI lab lists on Wall Street on Thursday"),
+        ("Bitcoin slides with stocks", "Crypto joins the AI sell-off, down sharply"),
     ]),
     ("NORTH AMERICA", [
         ("'El Chapo Isidro' captured", "FBI most-wanted kingpin seized in Sinaloa"),
         ("Violence follows the arrest", "Gunmen hit back after forces move in"),
+        ("US envoy meets Putin", "Witkoff in Moscow to discuss the peace plan"),
     ]),
     ("SOUTH AMERICA", [
         ("Peru quake: magnitude 6.7", "Andes tremor; no casualties reported yet"),
@@ -102,6 +106,8 @@ STORIES = [
         ("Houthis hit Saudi power plant", "Al-Shuqaiq station attacked in Jazan region"),
         ("Houthis hit Jazan port", "Second strike on Saudi Red Sea coast"),
         ("US weighs new Iran strikes", "Trump considers action as Israel presses"),
+        ("Iran claims drone downed", "Tehran says it shot down a drone near its border"),
+        ("Riyadh: oil output steady", "Saudi says output unaffected by Houthi strikes"),
     ]),
     ("AFRICA & ASIA", [
         ("ICJ: Myanmar guilty of genocide", "Court rules on Rohingya case at The Hague"),
@@ -225,7 +231,7 @@ def main():
     # ---- date band
     d.rectangle([MX, 124, W - MX, 158], fill=NAVY)
     centre(d, "SATURDAY  •  21 NOVEMBER 2026", W // 2 - 120, 133, font(F_SERIF_B, 22), WHITE)
-    d.text((W - MX - 190, 136), "30 STORIES • 7 REGIONS", font=font(F_SANS_B, 13), fill=GOLD)
+    d.text((W - MX - 190, 136), "36 STORIES • 7 REGIONS", font=font(F_SANS_B, 13), fill=GOLD)
 
     # ---- stats strip
     y0, y1 = 166, 208
@@ -292,13 +298,15 @@ def main():
     d.rectangle([x0 + 12, fy1 - 30, x0 + cw - 12, fy1 - 12], outline=RED, width=2)
     centre(d, "FBI MOST WANTED  •  CAPTURED", x0 + cw / 2, fy1 - 27, font(F_SANS_B, 11), RED)
 
-    # ---- numbered list: 26 more stories, 7 regions
+    # ---- numbered list: 32 more stories, 7 regions
     ly = 624
-    d.text((MX, ly), "ALSO ON SATURDAY — 26 MORE STORIES", font=font(F_SERIF_B, 20), fill=INK)
+    d.text((MX, ly), "ALSO ON SATURDAY — 32 MORE STORIES", font=font(F_SERIF_B, 20), fill=INK)
     d.line([MX, ly + 28, W - MX, ly + 28], fill=INK, width=2)
     # distribute region groups over 3 columns, balanced by item count
+    # (36 stories: col1 EUROPE 10, col2 MARKETS+NA+GLOBAL 11,
+    #  col3 MIDDLE EAST+AFRICA&ASIA+S.AMERICA 11; 24px/item, 18px/header)
     groups = STORIES
-    col_groups = [[groups[0]], [groups[1], groups[2], groups[3]], [groups[4], groups[5], groups[6]]]
+    col_groups = [[groups[0]], [groups[1], groups[2], groups[6]], [groups[4], groups[5], groups[3]]]
     col_w = (W - 2 * MX - 2 * 16) / 3
     n = 4  # hero is story 01, the three features are 02-04
     for ci, cgroups in enumerate(col_groups):
@@ -306,16 +314,16 @@ def main():
         cy = ly + 40
         for region, items in cgroups:
             d.text((cx, cy), region, font=font(F_SANS_B, 11), fill=RED)
-            cy += 15
+            cy += 13
             d.line([cx, cy, cx + col_w, cy], fill=LINE, width=1)
             cy += 5
             for head, detail in items:
                 n += 1
                 d.text((cx, cy), "%02d" % n, font=font(F_MONO_B, 12), fill=NAVY)
                 d.text((cx + 30, cy), head, font=font(F_SANS_B, 12), fill=INK)
-                cy += 13
+                cy += 12
                 d.text((cx + 30, cy), detail, font=font(F_SANS, 11), fill=(70, 70, 70))
-                cy += 13
+                cy += 12
 
     # ---- footer
     d.line([MX, 990, W - MX, 990], fill=INK, width=1)
