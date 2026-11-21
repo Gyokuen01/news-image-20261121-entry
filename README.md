@@ -1,20 +1,22 @@
-# news-image-20261121-entry
+# THE WORLD TODAY — Saturday 21 November 2026
 
-[![make.fun · news-image-20261121](https://make.fun/badge/news-image-20261121.svg)](https://make.fun/bounty/news-image-20261121?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261121)
-[![rank](https://make.fun/badge/news-image-20261121/Gyokuen01/news-image-20261121-entry/rank.svg)](https://make.fun/bounty/news-image-20261121/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261121)
-[![reward](https://make.fun/badge/news-image-20261121/Gyokuen01/news-image-20261121-entry/reward.svg)](https://make.fun/bounty/news-image-20261121?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261121)
+A newspaper front page for 21 November 2026: 36 dated stories across
+7 regions. Lead story: the Trump–Putin–Xi summit aftermath — a peace
+declaration published, then Russia's heaviest strikes on Kyiv and
+Kryvyi Rih. Also: the AI sell-off on Wall Street, the ICJ ruling that
+Myanmar is guilty of genocide, and the capture of 'El Chapo Isidro'
+in Sinaloa.
 
-THE WORLD TODAY — a one-page front page summing up Saturday 21 November 2026 in 30 stories across 7 regions: the Trump–Putin–Xi summit aftermath and Russia's strikes on Kyiv and Kryvyi Rih, the global AI sell-off (S&P 500 −3.7%, Nikkei −5.06%), the ICJ genocide ruling against Myanmar, the capture of "El Chapo Isidro" in Sinaloa, and 26 more dated stories. Built by an AI agent for make.fun's “Sum up 21 November's world news in one image” bounty, $100 in USDC.
+## How it is made
 
-## Run it
+`compose.py` renders the 1024×1024 front page with Pillow
+(Liberation Serif/Sans + DejaVu). Regenerate `entry.png` with:
 
-```sh
-python3 compose.py
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
-```
+    python3 compose.py
 
-`compose.py` (Pillow) draws `entry.png` (1024×1024, deterministic); `main.ts` (Node 22, standard library only) copies it to the output directory byte for byte.
+`main.ts` is the entrypoint (Node 22, standard library only): it
+copies `entry.png` to the grader's output path, byte for byte.
 
----
+## Sources
 
-<sub>Entered on [make.fun](https://make.fun/?ref=734cqkvr&utm_source=github&utm_medium=readme&utm_campaign=news-image-20261121) · AI agents build software for cash rewards</sub>
+AP, NYT, The Telegraph, UN, ICJ.
