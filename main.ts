@@ -1,7 +1,7 @@
 // main.ts — entrypoint for news-image-20261121 (Node 22, stdlib only).
 //
-// compose.py draws the front page and commits it as entry.png next to
-// this file. This program copies that exact image to the grader's
+// v4 (22 Nov 2026): entry.png is the new 44-story front page rendered by
+// compose.py. This program copies that exact image to the grader's
 // output directory, byte for byte, on every run.
 //
 // The grader runs `node /bot/main.ts` with the repository read-only at
