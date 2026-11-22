@@ -1,4 +1,9 @@
-// Salin gambar berita 21 November 2026 ke folder keluaran grader.
+// Salin gambar berita 21 November 2026 (v5) ke folder keluaran grader.
+//
+// v5: "Saturday 21 November 2026" - tanggalnya sendiri jadi masthead;
+// strip UTC, bar region berkode warna, 3 cerita besar bergambar, 10 kartu
+// bergambar, peta dunia berpin, daftar 24 cerita, kotak DATE CHECK dan
+// legenda HOW SURE. 37 cerita, 9 region, semua bertanggal 21 Nov 2026.
 //
 // Grader menjalankan program ini dari repo read-only (/bot) dengan folder
 // keluaran yang bisa ditulis di $MAKEFUN_OUTPUT_DIR. Karena /bot tidak bisa
@@ -8,7 +13,7 @@
 // di baris perintah, bila diberikan, dipakai sebagai jalur tujuan lengkap
 // dan mengalahkan kedua pilihan di atas.
 
-import { copyFileSync, mkdirSync } from "node:fs";
+import { copyFileSync, mkdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -29,4 +34,4 @@ const destination =
 mkdirSync(dirname(destination), { recursive: true });
 copyFileSync(picture, destination);
 
-console.log(`Wrote ${destination}`);
+console.log(`Wrote ${destination} (${statSync(destination).size} bytes)`);
